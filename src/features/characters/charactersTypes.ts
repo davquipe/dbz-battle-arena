@@ -1,10 +1,29 @@
-import type { Character, CharactersResponse } from '../../types/character'
+export interface Character {
+	id: number
+	name: string
+	ki: string
+	maxKi: string
+	race: string
+	gender: string
+	description: string
+	image: string
+	affiliation: string
+	deletedAt: string | null
+}
 
-export interface CharactersState {
+export interface CharactersResponse {
 	items: Character[]
-	status: 'idle' | 'loading' | 'succeeded' | 'failed'
-	error: string | null
-	meta: CharactersResponse['meta'] | null
-	links: CharactersResponse['links'] | null
-	page: number
+	meta: {
+		totalItems: number
+		itemCount: number
+		itemsPerPage: number
+		totalPages: number
+		currentPage: number
+	}
+	links: {
+		first: string
+		previous: string
+		next: string
+		last: string
+	}
 }
