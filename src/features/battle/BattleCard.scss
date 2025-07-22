@@ -1,0 +1,129 @@
+.battle-card {
+	flex: 1 1 0;
+	min-width: 210px;
+	max-width: 320px;
+	background: linear-gradient(120deg, #232650 85%, #23262f 100%);
+	border-radius: 1.4em;
+	margin: 0 0.8em;
+	padding: 1.1em 0.9em;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	box-shadow: 0 8px 24px #000a;
+	position: relative;
+	border: 2px solid #fcaf1760;
+	transition: transform 0.21s, border 0.18s;
+	&--empty {
+		justify-content: center;
+		color: #888;
+		background: #181a2b88;
+		border-style: dashed;
+		min-height: 232px;
+		font-size: 1.14em;
+	}
+	&--winner {
+		border: 3px solid #fcaf17;
+		box-shadow: 0 0 32px #fcaf1730, 0 4px 24px #f4480011;
+		transform: scale(1.03) translateY(-6px);
+		.battle-card__winner {
+			position: absolute;
+			top: 7px;
+			right: 8px;
+			font-size: 1.8em;
+			filter: drop-shadow(0 0 8px #fcaf17);
+			z-index: 2;
+			animation: battleCardWinnerFlash 0.8s;
+		}
+	}
+	.battle-card__image {
+		margin-bottom: 0.9em;
+		img {
+			width: 92px;
+			height: 92px;
+			object-fit: contain;
+			border-radius: 50%;
+			background: transparent;
+			border: 3.5px solid #fff2;
+			box-shadow: 0 2px 12px #fcaf1735;
+		}
+	}
+	.battle-card__info {
+		width: 100%;
+		text-align: center;
+		color: #fff;
+	}
+	.battle-card__name {
+		font-family: var(--font-title);
+		color: #fcaf17;
+		font-weight: 900;
+		font-size: 1.13rem;
+		letter-spacing: 1.3px;
+		margin-bottom: 0.28em;
+		line-height: 1.09;
+	}
+	.battle-card__meta {
+		display: flex;
+		justify-content: center;
+		gap: 1em;
+		font-size: 0.97em;
+		margin-bottom: 0.15em;
+		span {
+			background: #232d54;
+			color: #43f9a2;
+			border-radius: 0.6em;
+			font-weight: 800;
+			padding: 0.14em 0.8em;
+			letter-spacing: 0.9px;
+			text-transform: capitalize;
+		}
+	}
+	.battle-card__ki,
+	.battle-card__maxki {
+		font-size: 0.95em;
+		color: #fcaf17;
+		font-weight: 700;
+		margin-bottom: 0.1em;
+		b {
+			color: #f44800;
+		}
+	}
+	.battle-card__powerbar {
+		width: 94%;
+		height: 0.6em;
+		background: #252543;
+		border-radius: 2em;
+		overflow: hidden;
+		margin: 0.5em auto 0.8em;
+		box-shadow: 0 2px 8px #fcaf1720;
+		.battle-card__powerbar-fill {
+			height: 100%;
+			background: linear-gradient(90deg, #fcaf17 0%, #f44800 100%);
+			border-radius: 2em;
+			transition: width 0.34s cubic-bezier(0.5, 1.8, 0.5, 1);
+		}
+	}
+}
+
+@keyframes battleCardWinnerFlash {
+	0% {
+		filter: brightness(4) drop-shadow(0 0 32px #fcaf17);
+	}
+	100% {
+		filter: brightness(1) drop-shadow(0 0 8px #fcaf17);
+	}
+}
+
+@media (max-width: 900px) {
+	.battle-card {
+		margin: 0 0.25em 1.5em 0.25em;
+		max-width: 99vw;
+		min-width: 80vw;
+	}
+}
+@media (max-width: 600px) {
+	.battle-card {
+		min-width: 95vw;
+		padding: 0.7em 0.2em;
+		font-size: 0.97rem;
+	}
+}
