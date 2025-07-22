@@ -1,12 +1,18 @@
 import { useState } from 'react'
+import { useGetCharactersQuery } from '../characters/charactersApi'
+import type { Character } from '../characters/charactersTypes'
+import BattleSelector from './BattleSelector'
 import BattleCard from './BattleCard'
 import BattleResult from './BattleResult'
-import type { Character } from '../characters/charactersTypes'
-import './BattleArena.scss'
-import BattleSelector from './BattleSelector'
 import { compareKi } from './battleUtils'
+import './BattleArena.scss'
 
 export default function BattleArena() {
+	// Fetch personajes con RTK Query
+	const { data, isLoading, isError } = useGetCharactersQuery({ limit: 100 })
+	const characters = data?.items ?? []
+
+	// Estado de la batalla
 	const [left, setLeft] = useState<Character | null>(null)
 	const [right, setRight] = useState<Character | null>(null)
 	const [winner, setWinner] = useState<'left' | 'right' | 'draw' | null>(null)
@@ -14,6 +20,33 @@ export default function BattleArena() {
 		{ left: Character; right: Character; winner: string; date: number }[]
 	>([])
 
+	// Loader
+	if (isLoading) {
+		return (
+			<section className="battle-arena battle-arena--loading">
+				<h2 className="battle-arena__title">Battle Arena</h2>
+				<div className="battle-arena__loader">
+					<div className="dbz-loader" />
+					Cargando luchadores...
+				</div>
+			</section>
+		)
+	}
+
+	// Error
+	if (isError || !characters.length) {
+		return (
+			<section className="battle-arena battle-arena--error">
+				<h2 className="battle-arena__title">Battle Arena</h2>
+				<div className="battle-arena__error">
+					❌ Error cargando luchadores. <br />
+					Intenta recargar la página o verifica tu conexión.
+				</div>
+			</section>
+		)
+	}
+
+	// Lógica de batalla
 	const handleFight = () => {
 		if (!left || !right) return
 		const cmp = compareKi(left.maxKi, right.maxKi)
@@ -24,7 +57,7 @@ export default function BattleArena() {
 		setWinner(win)
 		setHistory((h) => [
 			{ left, right, winner: win, date: Date.now() },
-			...h.slice(0, 2),
+			...h.slice(0, 4), // Solo últimas 5
 		])
 	}
 
@@ -34,6 +67,7 @@ export default function BattleArena() {
 		setRight(null)
 	}
 
+	// Render principal
 	return (
 		<section className="battle-arena">
 			<h2 className="battle-arena__title">Battle Arena</h2>
@@ -45,6 +79,7 @@ export default function BattleArena() {
 						onChange={setLeft}
 						label="Luchador 1"
 						exclude={right?.id}
+						characters={characters}
 					/>
 					<BattleCard
 						character={left}
@@ -63,6 +98,7 @@ export default function BattleArena() {
 						onChange={setRight}
 						label="Luchador 2"
 						exclude={left?.id}
+						characters={characters}
 					/>
 					<BattleCard
 						character={right}

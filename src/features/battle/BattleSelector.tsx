@@ -1,88 +1,114 @@
-import { useState } from 'react'
-import { useGetCharactersQuery } from '../characters/charactersApi'
+import React, { useState, useRef, useEffect } from 'react'
 import type { Character } from '../characters/charactersTypes'
 import './BattleSelector.scss'
 
-interface Props {
+interface BattleSelectorProps {
 	value: Character | null
-	onChange: (c: Character | null) => void
+	onChange: (char: Character) => void
 	label: string
-	exclude?: number // Para no seleccionar al mismo dos veces
+	exclude?: number
+	characters?: Character[] // pásale por props o consúmelos vía RTK si prefieres
 }
 
-export default function BattleSelector({
+const BattleSelector: React.FC<BattleSelectorProps> = ({
 	value,
 	onChange,
 	label,
 	exclude,
-}: Props) {
+	characters = [],
+}) => {
+	const [isOpen, setIsOpen] = useState(false)
 	const [search, setSearch] = useState('')
-	const { data, isLoading } = useGetCharactersQuery({
-		page: 1,
-		limit: 100,
-		search,
-	})
+	const ref = useRef<HTMLDivElement>(null)
 
-	const items = (data?.items ?? []).filter(
-		(c) => !exclude || c.id !== exclude,
-	)
+	// Cerrar dropdown al hacer click fuera
+	useEffect(() => {
+		if (!isOpen) return
+		const handle = (e: MouseEvent) => {
+			if (ref.current && !ref.current.contains(e.target as Node)) {
+				setIsOpen(false)
+			}
+		}
+		document.addEventListener('mousedown', handle)
+		return () => document.removeEventListener('mousedown', handle)
+	}, [isOpen])
+
+	// Filtro de personajes
+	const filtered = characters
+		.filter((c) => !exclude || c.id !== exclude)
+		.filter((c) =>
+			c.name.toLowerCase().includes(search.trim().toLowerCase()),
+		)
 
 	return (
-		<div className="battle-selector">
+		<div className="battle-selector" ref={ref}>
 			<label className="battle-selector__label">{label}</label>
-			<input
-				className="battle-selector__input"
-				placeholder="Buscar luchador…"
-				value={search}
-				onChange={(e) => setSearch(e.target.value)}
-				autoComplete="off"
-			/>
-			<div className="battle-selector__dropdown">
-				{isLoading ? (
-					<div className="battle-selector__loading">Cargando…</div>
-				) : items.length === 0 ? (
-					<div className="battle-selector__empty">Sin resultados</div>
-				) : (
-					<ul>
-						{items.slice(0, 8).map((c) => (
-							<li
-								key={c.id}
-								className={`battle-selector__option${
-									value?.id === c.id ? ' is-selected' : ''
-								}`}
-								onClick={() => {
-									onChange(c)
-									setSearch('')
-								}}
-								tabIndex={0}
-								onKeyDown={(e) =>
-									e.key === 'Enter'
-										? (onChange(c), setSearch(''))
-										: undefined
-								}>
-								<img
-									src={c.image}
-									alt={c.name}
-									width={30}
-									height={30}
-								/>
-								<span>{c.name}</span>
-								<span className="battle-selector__race">
-									{c.race}
-								</span>
-							</li>
-						))}
-					</ul>
-				)}
-			</div>
-			{value && (
-				<button
-					className="battle-selector__clear"
-					onClick={() => onChange(null)}
-					title="Quitar selección">
-					✕
-				</button>
+
+			{/* Si no hay seleccionado, o abres el dropdown */}
+			{!value || isOpen ? (
+				<div className="battle-selector__dropdown-wrap">
+					<input
+						className="battle-selector__input"
+						placeholder="Buscar luchador..."
+						autoFocus={isOpen}
+						value={search}
+						onFocus={() => setIsOpen(true)}
+						onChange={(e) => setSearch(e.target.value)}
+					/>
+					{isOpen && (
+						<ul className="battle-selector__dropdown">
+							{filtered.length === 0 && (
+								<li className="battle-selector__empty">
+									Sin resultados
+								</li>
+							)}
+							{filtered.map((char) => (
+								<li
+									key={char.id}
+									className="battle-selector__item"
+									onClick={() => {
+										onChange(char)
+										setIsOpen(false)
+										setSearch('')
+									}}
+									tabIndex={0}>
+									<img
+										src={char.image}
+										alt={char.name}
+										className="battle-selector__avatar"
+									/>
+									<span className="battle-selector__name">
+										{char.name}
+									</span>
+									<span
+										className={`battle-selector__race battle-selector__race--${char.race.toLowerCase()}`}>
+										{char.race}
+									</span>
+								</li>
+							))}
+						</ul>
+					)}
+				</div>
+			) : (
+				<div className="battle-selector__selected">
+					<img
+						src={value.image}
+						alt={value.name}
+						className="battle-selector__avatar"
+					/>
+					<span className="battle-selector__name">{value.name}</span>
+					<button
+						className="battle-selector__change"
+						onClick={() => setIsOpen(true)}
+						type="button"
+						title="Cambiar luchador"
+						aria-label="Cambiar luchador">
+						✏️ Cambiar
+					</button>
+				</div>
 			)}
 		</div>
 	)
 }
+
+export default BattleSelector
