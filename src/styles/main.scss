@@ -1,0 +1,10 @@
+@import './variables';
+@import './mixins';
+
+body {
+	background: #181818;
+	color: #fff;
+	font-family: 'Inter', 'Roboto', Arial, sans-serif;
+	min-height: 100vh;
+	margin: 0;
+}
