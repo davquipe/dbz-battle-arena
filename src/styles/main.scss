@@ -1,6 +1,11 @@
-@import './components/_variables';
-@import './components/_themes';
-@import './components/_mixins';
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+@import '@fontsource/bebas-neue/400.css';
+
+@import './_variables';
+@import './_themes';
+@import './_mixins';
 
 *,
 *::before,
