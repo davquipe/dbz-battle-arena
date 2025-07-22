@@ -1,10 +1,59 @@
-@import './variables';
-@import './mixins';
+@import './components/_variables';
+@import './components/_themes';
+@import './components/_mixins';
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html,
+body {
+	width: 100vw;
+	min-height: 100vh;
+	font-size: 16px;
+	font-family: var(--font-main, 'Inter', Arial, sans-serif);
+	background: var(--color-bg);
+	color: var(--color-text);
+	transition: background 0.25s, color 0.2s;
+}
 
 body {
-	background: #181818;
-	color: #fff;
-	font-family: 'Inter', 'Roboto', Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 	min-height: 100vh;
-	margin: 0;
+	min-width: 100vw;
+	overflow-x: hidden;
 }
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+ul,
+ol {
+	list-style: none;
+}
+
+button,
+input,
+select,
+textarea {
+	font-family: inherit;
+	font-size: inherit;
+	background: none;
+	border: none;
+	outline: none;
+}
+
+.noselect {
+	user-select: none;
+}
+
+@import '../components/DBZNavbar.scss';
+@import '../components/DBZLoader.scss';
+@import '../features/home/HeroSection.scss';

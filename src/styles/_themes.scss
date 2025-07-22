@@ -1,0 +1,26 @@
+:root {
+	--color-bg: #181818;
+	--color-text: #f3f3f3;
+	--color-primary: #fcaf17;
+	--color-accent: #f44800;
+	--color-navbar: #191919;
+	--font-main: 'Inter', Arial, sans-serif;
+	--font-title: 'Bebas Neue', 'Arial Black', cursive;
+}
+
+[data-theme='light'] {
+	--color-bg: #f9fafc;
+	--color-text: #232323;
+	--color-navbar: #fff;
+}
+
+[data-theme='namek'] {
+	--color-bg: #49f4a4;
+	--color-text: #0d2c13;
+	--color-navbar: #23b35e;
+}
+
+body {
+	background: var(--color-bg);
+	color: var(--color-text);
+}

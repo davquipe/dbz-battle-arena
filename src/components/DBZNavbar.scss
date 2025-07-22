@@ -1,0 +1,78 @@
+.dbz-navbar {
+	width: 100%;
+	background: #191919;
+	box-shadow: 0 4px 16px 0 #0002;
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 2rem;
+	height: 56px;
+
+	&__logo {
+		font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+		font-size: 2.1rem;
+		letter-spacing: 2px;
+		color: #fcaf17;
+		text-shadow: 1px 1px 0 #fff3, 2px 2px 2px #0006;
+		display: flex;
+		align-items: center;
+		gap: 0.7rem;
+		img {
+			height: 38px;
+		}
+	}
+
+	&__links {
+		display: flex;
+		gap: 1.7rem;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	&__link {
+		font-size: 1.09rem;
+		color: #e3e3e3;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-decoration: none;
+		transition: color 0.16s;
+
+		&.active,
+		&:hover,
+		&:focus {
+			color: #fcaf17;
+			text-shadow: 0 0 2px #fcaf17aa;
+		}
+	}
+
+	// Responsive
+	@media (max-width: 800px) {
+		padding: 0 1rem;
+		&__logo {
+			font-size: 1.5rem;
+		}
+		&__links {
+			gap: 0.9rem;
+		}
+	}
+	@media (max-width: 540px) {
+		height: 48px;
+		padding: 0 0.6rem;
+		&__logo {
+			font-size: 1.05rem;
+			img {
+				height: 24px;
+			}
+		}
+		&__links {
+			gap: 0.4rem;
+		}
+		&__link {
+			font-size: 0.91rem;
+		}
+	}
+}
