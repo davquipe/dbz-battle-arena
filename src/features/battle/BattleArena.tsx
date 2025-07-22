@@ -37,33 +37,41 @@ export default function BattleArena() {
 	return (
 		<section className="battle-arena">
 			<h2 className="battle-arena__title">Battle Arena</h2>
-			<div className="battle-arena__selectors">
-				<BattleSelector
-					value={left}
-					onChange={setLeft}
-					label="Luchador 1"
-					exclude={right?.id}
-				/>
+			<div className="battle-arena__main">
+				{/* Lado Izquierdo */}
+				<div className="battle-arena__side">
+					<BattleSelector
+						value={left}
+						onChange={setLeft}
+						label="Luchador 1"
+						exclude={right?.id}
+					/>
+					<BattleCard
+						character={left}
+						side="left"
+						highlight={winner === 'left'}
+					/>
+				</div>
+
+				{/* VS */}
 				<div className="battle-arena__vs">VS</div>
-				<BattleSelector
-					value={right}
-					onChange={setRight}
-					label="Luchador 2"
-					exclude={left?.id}
-				/>
+
+				{/* Lado Derecho */}
+				<div className="battle-arena__side">
+					<BattleSelector
+						value={right}
+						onChange={setRight}
+						label="Luchador 2"
+						exclude={left?.id}
+					/>
+					<BattleCard
+						character={right}
+						side="right"
+						highlight={winner === 'right'}
+					/>
+				</div>
 			</div>
-			<div className="battle-arena__cards">
-				<BattleCard
-					character={left}
-					side="left"
-					highlight={winner === 'left'}
-				/>
-				<BattleCard
-					character={right}
-					side="right"
-					highlight={winner === 'right'}
-				/>
-			</div>
+
 			<div className="battle-arena__actions">
 				<button
 					className="battle-arena__fight"
@@ -78,9 +86,11 @@ export default function BattleArena() {
 					Resetear
 				</button>
 			</div>
+
 			{winner && (
 				<BattleResult left={left} right={right} winner={winner} />
 			)}
+
 			{history.length > 0 && (
 				<div className="battle-arena__history">
 					<h4>Historial de Batallas</h4>
