@@ -7,6 +7,7 @@ import NotFound from '../features/notfound/NotFound'
 import Favorites from '../features/favorites/Favorites'
 import History from '../features/history/History'
 import Characters from '../features/characters/Characters'
+import CharacterDetail from '../features/characterDetail/CharacterDetail'
 
 export const router = createBrowserRouter([
 	{
@@ -16,7 +17,7 @@ export const router = createBrowserRouter([
 			{ index: true, Component: Home },
 			{ path: 'battle', Component: Battle },
 			{ path: 'characters', Component: Characters },
-			// { path: 'characters/:id', Component: CharacterDetail },
+			{ path: 'characters/:id', Component: CharacterDetail },
 			{ path: 'history', Component: History },
 			{ path: 'favorites', Component: Favorites },
 			{ path: '*', Component: NotFound },

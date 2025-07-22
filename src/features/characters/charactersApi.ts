@@ -1,9 +1,8 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import type { Character, CharactersResponse } from '../../types/character'
+import { api } from '../../api/api'
+import type { CharactersResponse } from '../../types/character'
+import type { CharacterDetail } from './charactersTypes'
 
-export const charactersApi = createApi({
-	reducerPath: 'charactersApi',
-	baseQuery: fetchBaseQuery({ baseUrl: 'https://dragonball-api.com/api/' }),
+export const charactersApi = api.injectEndpoints({
 	endpoints: (builder) => ({
 		getCharacters: builder.query<
 			CharactersResponse,
@@ -14,10 +13,11 @@ export const charactersApi = createApi({
 					search ? `&search=${search}` : ''
 				}`,
 		}),
-		getCharacterById: builder.query<Character, string | number>({
+		getCharacterById: builder.query<CharacterDetail, string | number>({
 			query: (id) => `/characters/${id}`,
 		}),
 	}),
+	overrideExisting: false,
 })
 
 export const { useGetCharactersQuery, useGetCharacterByIdQuery } = charactersApi

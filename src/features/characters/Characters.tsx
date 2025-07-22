@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useGetCharactersQuery } from './charactersApi'
 import CharacterCard from './CharacterCard'
 import './Characters.scss'
+import { useNavigate } from 'react-router-dom'
 
 const Characters = () => {
 	const [page, setPage] = useState(1)
@@ -9,6 +10,8 @@ const Characters = () => {
 		page,
 		limit: 24,
 	})
+
+	const navigate = useNavigate()
 
 	if (isLoading)
 		return <div className="characters__loading">Cargando personajes…</div>
@@ -22,7 +25,11 @@ const Characters = () => {
 			<h2 className="characters__title">Personajes</h2>
 			<div className="characters__grid">
 				{data?.items.map((char) => (
-					<CharacterCard key={char.id} character={char} />
+					<CharacterCard
+						key={char.id}
+						character={char}
+						onClick={() => navigate(`/characters/${char.id}`)}
+					/>
 				))}
 			</div>
 			<div className="characters__pagination">

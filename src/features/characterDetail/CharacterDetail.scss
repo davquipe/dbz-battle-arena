@@ -1,0 +1,446 @@
+.character-detail {
+	min-height: 100vh;
+	padding: 2.8rem 0 2.4rem 0;
+	background: linear-gradient(115deg, #19192c 30%, #19171a 90%);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	&__container {
+		background: rgba(28, 27, 46, 0.95);
+		box-shadow: 0 4px 42px #0007, 0 0 0 3px #fcaf1738 inset;
+		border-radius: 2em;
+		display: flex;
+		gap: 2.8rem;
+		max-width: 1100px;
+		width: 98vw;
+		min-height: 360px;
+		padding: 2.6rem 2.2rem;
+		margin: 0 auto;
+		position: relative;
+		z-index: 1;
+		@media (max-width: 900px) {
+			flex-direction: column;
+			align-items: center;
+			gap: 1.3rem;
+			padding: 1.5rem 0.5rem;
+		}
+		@media (max-width: 600px) {
+			padding: 1.1rem 0.1rem;
+			border-radius: 1em;
+		}
+	}
+
+	&__avatar {
+		width: 248px;
+		min-width: 140px;
+		height: 370px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 1.3em;
+		overflow: hidden;
+		background: linear-gradient(130deg, #26203c 45%, #181928 100%);
+		box-shadow: 0 8px 38px #000a;
+		border: 3px solid #fcaf1748;
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+			object-position: center bottom;
+			filter: drop-shadow(0 0 20px #fcaf1735);
+			transition: transform 0.26s cubic-bezier(0.33, 1, 0.68, 1);
+			background: transparent;
+		}
+		@media (max-width: 900px) {
+			width: 170px;
+			height: 210px;
+		}
+		@media (max-width: 600px) {
+			width: 100px;
+			height: 140px;
+		}
+	}
+
+	&__info {
+		flex: 1 1 0;
+		min-width: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 1.1rem;
+		justify-content: flex-start;
+		@media (max-width: 900px) {
+			align-items: center;
+			text-align: center;
+		}
+	}
+
+	&__name {
+		font-family: var(--font-title);
+		font-size: 2.7rem;
+		font-weight: 900;
+		color: #fcaf17;
+		letter-spacing: 2.2px;
+		margin-bottom: 0.05em;
+		text-shadow: 0 2px 16px #0007, 0 1px 0 #fff3;
+		@media (max-width: 600px) {
+			font-size: 2.1rem;
+		}
+	}
+
+	&__meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1.1rem 2.2rem;
+		font-size: 1.17rem;
+		margin-bottom: 0.7em;
+		justify-content: flex-start;
+		@media (max-width: 600px) {
+			flex-direction: column;
+			align-items: center;
+			font-size: 1.04rem;
+			gap: 0.55rem;
+		}
+	}
+	&__meta-item {
+		background: rgba(36, 28, 51, 0.7);
+		padding: 0.34em 1.14em;
+		border-radius: 0.8em;
+		font-weight: 700;
+		color: #e7e0ff;
+		display: flex;
+		align-items: center;
+		gap: 0.27em;
+		box-shadow: 0 1px 7px #fcaf1711;
+		b {
+			color: #fcaf17;
+			font-weight: 900;
+			font-size: 1.03em;
+		}
+		&--ki b,
+		&--maxki b {
+			color: #49f2c4;
+			font-size: 1.12em;
+			text-shadow: 0 2px 10px #49f2c433;
+		}
+	}
+	&__meta-important {
+		font-size: 1.16em;
+		color: #49f2c4;
+		text-shadow: 0 2px 10px #49f2c430;
+	}
+
+	&__desc {
+		color: #e6e2fa;
+		font-size: 1.19rem;
+		font-weight: 400;
+		line-height: 1.53;
+		margin: 1.2em 0 0.7em 0;
+		text-shadow: 0 1px 8px #0003;
+		@media (max-width: 600px) {
+			font-size: 1.04rem;
+		}
+	}
+
+	// PLANETA DE ORIGEN
+	&__planet {
+		display: flex;
+		align-items: flex-start;
+		background: rgba(32, 25, 44, 0.82);
+		border-radius: 1.2em;
+		margin: 1.2em 0 0 0;
+		box-shadow: 0 0 9px #fcaf1740;
+		padding: 1em 1.4em;
+		gap: 1.2em;
+		@media (max-width: 900px) {
+			flex-direction: column;
+			align-items: center;
+			padding: 0.7em 0.5em;
+			gap: 0.4em;
+		}
+	}
+
+	&__planet-img {
+		width: 74px;
+		min-width: 54px;
+		height: 74px;
+		border-radius: 50%;
+		overflow: hidden;
+		background: #181826;
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			border-radius: 50%;
+			box-shadow: 0 2px 18px #2f6ec933;
+		}
+	}
+	&__planet-info {
+		display: flex;
+		flex-direction: column;
+		gap: 0.3em;
+		h4 {
+			margin: 0 0 0.2em 0;
+			color: #fcaf17;
+			font-weight: 900;
+			font-size: 1.14rem;
+			span {
+				color: #ffe871;
+			}
+		}
+		p {
+			margin: 0;
+			font-size: 1.06rem;
+			color: #f4eeff;
+			line-height: 1.39;
+			text-align: left;
+		}
+	}
+	&__planet-destroyed {
+		color: #e64b42;
+		font-size: 0.92em;
+		font-weight: 900;
+		text-shadow: 0 2px 9px #e64b4240;
+		margin-left: 0.24em;
+	}
+
+	// TRANSFORMACIONES
+	&__transformations {
+		margin: 1.6em 0 0 0;
+		h4 {
+			font-size: 1.23rem;
+			font-weight: 900;
+			color: #fcaf17;
+			letter-spacing: 1.1px;
+			margin-bottom: 0.7em;
+		}
+	}
+	&__transform-list {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(124px, 1fr));
+		gap: 1.08em;
+		@media (max-width: 700px) {
+			grid-template-columns: 1fr 1fr;
+		}
+		@media (max-width: 480px) {
+			grid-template-columns: 1fr;
+		}
+	}
+	&__transform-card {
+		background: rgba(36, 24, 55, 0.92);
+		border-radius: 1.16em;
+		padding: 0.7em 0.5em 1em 0.5em;
+		box-shadow: 0 3px 14px #0002;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		transition: transform 0.15s, box-shadow 0.15s;
+		img {
+			width: 71px;
+			height: 71px;
+			object-fit: contain;
+			margin-bottom: 0.42em;
+			filter: drop-shadow(0 2px 10px #fcaf175a);
+			border-radius: 50%;
+			background: #272737;
+		}
+		.character-detail__transform-name {
+			color: #ffe871;
+			font-size: 1.09em;
+			font-weight: 800;
+			text-shadow: 0 2px 7px #111a;
+			margin-bottom: 0.22em;
+		}
+		.character-detail__transform-ki {
+			font-size: 0.97em;
+			color: #f3ebff;
+			font-weight: 700;
+		}
+	}
+
+	&__back {
+		background: none;
+		border: 2px solid #fcaf17;
+		color: #fcaf17;
+		padding: 0.68em 1.5em;
+		font-size: 1.11rem;
+		font-weight: 900;
+		border-radius: 1.09em;
+		margin-top: 2.2em;
+		cursor: pointer;
+		letter-spacing: 1px;
+		transition: all 0.16s cubic-bezier(0.43, 1, 0.68, 1);
+		&:hover {
+			background: #fcaf17;
+			color: #191927;
+			transform: translateY(-2px) scale(1.055);
+			box-shadow: 0 2px 14px #fcaf1730;
+		}
+	}
+
+	// Skeleton Loader
+	.skeleton {
+		background: linear-gradient(
+			90deg,
+			#242241 30%,
+			#272738 60%,
+			#181926 100%
+		);
+		border-radius: 0.8em;
+		min-height: 1.7em;
+		min-width: 90px;
+		margin: 0.2em 0;
+		animation: skeleton-fade 1.6s infinite linear alternate;
+	}
+	@keyframes skeleton-fade {
+		0% {
+			opacity: 0.62;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+
+	// --- ERROR STYLES DRAGON BALL ---
+	&--error .character-detail__container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		min-height: 350px;
+		padding: 2.8rem 1.1rem 2.4rem 1.1rem;
+		background: rgba(37, 25, 24, 0.94);
+		border-radius: 2em;
+		box-shadow: 0 4px 40px #43030399, 0 0 0 3px #fcaf1722 inset;
+		max-width: 450px;
+		width: 96vw;
+		position: relative;
+		overflow: hidden;
+	}
+	&--error .character-detail__error-dragonball {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 1.1rem;
+		width: 74px;
+		height: 74px;
+		position: relative;
+		.dragonball-epic {
+			position: relative;
+			width: 64px;
+			height: 64px;
+			background: radial-gradient(
+				circle at 45% 48%,
+				#ffd851 65%,
+				#fcaf17 95%
+			);
+			border-radius: 50%;
+			box-shadow: 0 2px 18px #fcaf17bb, 0 0 8px #fff6 inset;
+			z-index: 2;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			animation: dragonball-spin 2.7s infinite linear;
+			.dragonball-epic__star {
+				position: absolute;
+				width: 11px;
+				height: 11px;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%) rotateZ(0deg);
+				background: transparent;
+				&:nth-child(1) {
+					transform: translate(-50%, -50%) rotate(8deg)
+						translateY(-19px);
+				}
+				&:nth-child(2) {
+					transform: translate(-50%, -50%) rotate(98deg)
+						translateY(-19px);
+				}
+				&:nth-child(3) {
+					transform: translate(-50%, -50%) rotate(188deg)
+						translateY(-19px);
+				}
+				&:nth-child(4) {
+					transform: translate(-50%, -50%) rotate(278deg)
+						translateY(-19px);
+				}
+				&::before {
+					content: '';
+					display: block;
+					width: 11px;
+					height: 11px;
+					background: radial-gradient(
+						circle,
+						#e64b42 55%,
+						#ffb720 100%
+					);
+					border-radius: 50%;
+					box-shadow: 0 2px 8px #fc2b175c;
+				}
+			}
+		}
+		.dragonball-epic__glow {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 64px;
+			height: 64px;
+			border-radius: 50%;
+			background: radial-gradient(
+				circle at 40% 70%,
+				#ffe29a44 60%,
+				#fff0 100%
+			);
+			filter: blur(4px);
+			pointer-events: none;
+			z-index: 1;
+			animation: dragonball-glow 1.8s infinite alternate ease-in-out;
+		}
+	}
+	&--error .character-detail__error-title {
+		color: #fcaf17;
+		font-size: 2.13rem;
+		font-weight: 900;
+		text-align: center;
+		margin-bottom: 0.4em;
+		letter-spacing: 1.6px;
+		text-shadow: 0 2px 14px #fcaf1733;
+	}
+	&--error .character-detail__error-msg {
+		color: #fff3;
+		text-align: center;
+		font-size: 1.15rem;
+		font-weight: 600;
+		margin-bottom: 1.6rem;
+	}
+
+	&--error .character-detail__name {
+		color: #e64b42;
+	}
+}
+
+@keyframes skeleton-fade {
+	0% {
+		opacity: 0.62;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes dragonball-spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+@keyframes dragonball-glow {
+	0% {
+		opacity: 0.88;
+	}
+	100% {
+		opacity: 0.38;
+	}
+}
