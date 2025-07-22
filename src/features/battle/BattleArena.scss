@@ -1,14 +1,28 @@
+// BattleArena.scss
+
+.battle-arena-wrapper {
+	position: relative;
+	min-height: 100vh;
+	width: 100vw;
+	overflow: hidden;
+	background: var(--color-bg, #131316);
+}
+
+// Bloque principal
 .battle-arena {
+	position: relative;
+	z-index: 2;
 	width: 100vw;
 	min-height: 100vh;
 	padding: 2.8rem 0 0 0;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	background: var(--color-bg, #131316);
+	background: transparent;
 
+	// Título
 	&__title {
-		font-family: var(--font-title);
+		font-family: var(--font-title, 'Inter', sans-serif);
 		color: #fcaf17;
 		font-size: 2.4rem;
 		font-weight: 900;
@@ -16,8 +30,12 @@
 		margin-bottom: 1.6rem;
 		text-align: center;
 		text-shadow: 0 2px 18px #1c1c1c44;
+		@media (max-width: 540px) {
+			font-size: 1.55rem;
+		}
 	}
 
+	// Zona principal (cards y selectors)
 	&__main {
 		display: grid;
 		grid-template-columns: 1fr 80px 1fr;
@@ -34,6 +52,7 @@
 		}
 	}
 
+	// Lado (contenedor de cada luchador)
 	&__side {
 		width: 100%;
 		display: flex;
@@ -46,8 +65,13 @@
 			min-width: 90vw;
 			max-width: 99vw;
 		}
+		@media (max-width: 540px) {
+			min-width: 98vw;
+			max-width: 100vw;
+		}
 	}
 
+	// "VS" central
 	&__vs {
 		display: flex;
 		align-items: center;
@@ -65,35 +89,89 @@
 		}
 	}
 
+	// Botones de acción
 	&__actions {
 		display: flex;
 		gap: 1.4rem;
 		justify-content: center;
 		margin: 0.6rem 0 1.1rem 0;
-		button {
-			font-size: 1.14rem;
-			font-weight: 700;
-			background: linear-gradient(90deg, #fcaf17 55%, #f44800 100%);
-			color: #191a2b;
-			border: none;
-			border-radius: 2em;
-			padding: 0.6em 2.1em;
-			cursor: pointer;
-			box-shadow: 0 2px 12px #f4480030;
-			transition: background 0.18s, transform 0.19s;
+	}
+
+	&__btn {
+		font-size: 1.14rem;
+		font-weight: 700;
+		background: linear-gradient(90deg, #fcaf17 55%, #f44800 100%);
+		color: #191a2b;
+		border: none;
+		border-radius: 2em;
+		padding: 0.6em 2.1em;
+		cursor: pointer;
+		box-shadow: 0 2px 12px #f4480030;
+		transition: background 0.18s, transform 0.19s;
+		outline: none;
+		&:hover:enabled {
+			background: linear-gradient(90deg, #f44800 70%, #fcaf17 100%);
+			color: #fff;
+			transform: scale(1.04) translateY(-2px);
+		}
+		&:disabled {
+			opacity: 0.65;
+			cursor: not-allowed;
+			filter: grayscale(0.7);
+		}
+		&--fight {
+			// Puedes agregar estilos especiales para "Pelear"
+		}
+		&--reset {
+			background: #272740;
+			color: #fff;
 			&:hover:enabled {
-				background: linear-gradient(90deg, #f44800 70%, #fcaf17 100%);
-				color: #fff;
-				transform: scale(1.04) translateY(-2px);
-			}
-			&:disabled {
-				opacity: 0.65;
-				cursor: not-allowed;
-				filter: grayscale(0.7);
+				background: #191a2b;
+				color: #fcaf17;
 			}
 		}
 	}
 
+	// Loader y error states
+	&__loader {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		color: #fff;
+		font-size: 1.15rem;
+		font-weight: 700;
+		margin-top: 2.6em;
+		gap: 1.1em;
+	}
+	&__spinner {
+		width: 48px;
+		height: 48px;
+		border: 6px solid #fcaf17;
+		border-top: 6px solid #f44800;
+		border-radius: 50%;
+		animation: battle-spinner 1s linear infinite;
+		margin-bottom: 0.5em;
+	}
+	@keyframes battle-spinner {
+		to {
+			transform: rotate(360deg);
+		}
+	}
+	&__error {
+		color: #fff2;
+		background: #201814d5;
+		padding: 2.1em 1.7em;
+		font-size: 1.25rem;
+		border-radius: 1.7em;
+		text-align: center;
+		margin-top: 2.5em;
+		font-weight: 700;
+		box-shadow: 0 2px 20px #f4480035;
+		line-height: 1.6;
+		max-width: 420px;
+	}
+
+	// Historial de batallas
 	&__history {
 		width: 100%;
 		max-width: 700px;
@@ -104,36 +182,38 @@
 		box-shadow: 0 2px 12px #1d27406d;
 		color: #fff;
 		font-size: 1.07rem;
-		h4 {
+
+		&-title {
 			color: #fcaf17;
 			margin: 0 0 0.9em 0;
 			font-weight: 900;
 			letter-spacing: 1px;
 		}
-		ul {
+		&-list {
 			margin: 0;
 			padding: 0;
 			list-style: none;
-			li {
-				margin: 0.35em 0;
-				span {
-					font-weight: 700;
-				}
+		}
+		&-item {
+			margin: 0.35em 0;
+			span {
+				font-weight: 700;
 			}
 		}
 	}
 
-	.battle-result {
-		text-align: center;
-		color: #fcaf17;
-		font-weight: 900;
-		font-size: 1.45rem;
-		margin: 1.1rem 0 0.8rem 0;
-		letter-spacing: 1.1px;
-		text-shadow: 0 1px 6px #f4480040;
+	// Estados de loading/error como modificadores BEM
+	&--loading,
+	&--error {
+		min-height: 55vh;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
 	}
 }
 
+// Responsive helpers
 @media (max-width: 600px) {
 	.battle-arena__main {
 		gap: 1.5rem;

@@ -1,0 +1,162 @@
+.arena-stage {
+	position: fixed;
+	inset: 0;
+	width: 100vw;
+	height: 100%;
+	pointer-events: none;
+	z-index: 0;
+	overflow: hidden;
+	background: radial-gradient(
+		ellipse 110% 70% at 50% 80%,
+		#212245 80%,
+		#111 100%
+	);
+	transition: background 0.7s;
+
+	&__ring {
+		position: absolute;
+		left: 50%;
+		top: 57%;
+		transform: translate(-50%, -50%);
+		width: 410px;
+		height: 110px;
+		background: radial-gradient(
+			ellipse 90% 55% at 50% 60%,
+			#ffd87744 40%,
+			#fff0 100%
+		);
+		border-radius: 50%;
+		box-shadow: 0 0 72px 16px #ffd84044, 0 0 0 3px #fff2 inset;
+		filter: blur(2px) brightness(1.15);
+		opacity: 0.78;
+		z-index: 1;
+	}
+
+	&__spot {
+		position: absolute;
+		top: 56%;
+		width: 340px;
+		height: 130px;
+		border-radius: 50%;
+		filter: blur(24px);
+		opacity: 0.7;
+
+		&--left {
+			left: 18vw;
+			background: radial-gradient(
+				circle at 65% 70%,
+				#ffe15c88 40%,
+				#f89e0a22 100%
+			);
+		}
+		&--right {
+			right: 17vw;
+			background: radial-gradient(
+				circle at 35% 70%,
+				#52c7fa88 40%,
+				#0ac2f822 100%
+			);
+		}
+	}
+
+	&__zeno {
+		position: absolute;
+		left: 50%;
+		top: 32%;
+		width: 80px;
+		height: 80px;
+		background: radial-gradient(
+			circle,
+			#fff 0 20%,
+			#6ae7ff 65%,
+			#76bbf5 80%,
+			transparent 100%
+		);
+		border-radius: 50%;
+		box-shadow: 0 0 34px 15px #58fff888, 0 0 2px 1px #ffe;
+		opacity: 0.9;
+		z-index: 2;
+
+		// Zeno eyes/face as dots
+		&::before,
+		&::after {
+			content: '';
+			position: absolute;
+			top: 38px;
+			width: 10px;
+			height: 10px;
+			background: #282850;
+			border-radius: 50%;
+			z-index: 3;
+		}
+		&::before {
+			left: 28px;
+		}
+		&::after {
+			right: 28px;
+		}
+	}
+
+	&__particle {
+		position: absolute;
+		z-index: 2;
+		border-radius: 50%;
+		opacity: 0.45;
+		pointer-events: none;
+		animation: arena-particle-float 8s linear infinite;
+
+		// Diferentes estilos de partículas (cuatro variantes)
+		&--0 {
+			width: 8px;
+			height: 8px;
+			background: #ffe68d;
+			top: calc(35% + (random(30) - 10) * 1%);
+			left: calc(20% + (random(60)) * 1%);
+			animation-delay: 0s;
+		}
+		&--1 {
+			width: 5px;
+			height: 5px;
+			background: #ffeac4;
+			top: calc(65% + (random(18) - 9) * 1%);
+			left: calc(25% + (random(48)) * 1%);
+			animation-delay: 2s;
+		}
+		&--2 {
+			width: 6px;
+			height: 6px;
+			background: #fff;
+			top: calc(58% + (random(32) - 16) * 1%);
+			left: calc(10% + (random(80)) * 1%);
+			animation-delay: 1.5s;
+		}
+		&--3 {
+			width: 9px;
+			height: 9px;
+			background: #f8d15e;
+			top: calc(45% + (random(40) - 20) * 1%);
+			left: calc(18% + (random(66)) * 1%);
+			animation-delay: 3.5s;
+		}
+	}
+}
+
+@keyframes arena-particle-float {
+	0% {
+		transform: translateY(0) scale(1);
+		opacity: 0.28;
+	}
+	10% {
+		opacity: 0.55;
+	}
+	40% {
+		transform: translateY(-15px) scale(1.2);
+	}
+	60% {
+		opacity: 0.95;
+	}
+	100% {
+		transform: translateY(-28px) scale(0.94);
+		opacity: 0.18;
+	}
+}

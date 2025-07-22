@@ -35,6 +35,26 @@
 			animation: battleCardWinnerFlash 0.8s;
 		}
 	}
+
+	&__aura {
+		position: absolute;
+		top: 12px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 110px;
+		height: 110px;
+		border-radius: 50%;
+		z-index: 0;
+		background: radial-gradient(
+			circle,
+			#f6de56aa 0%,
+			#f4c11322 80%,
+			#fff0 100%
+		);
+		animation: cardAura 2.8s infinite ease-in-out;
+		pointer-events: none;
+	}
+
 	.battle-card__image {
 		margin-bottom: 0.9em;
 		img {
@@ -125,5 +145,15 @@
 		min-width: 95vw;
 		padding: 0.7em 0.2em;
 		font-size: 0.97rem;
+	}
+}
+
+@keyframes cardAura {
+	0%,
+	100% {
+		filter: blur(6px) brightness(1.08);
+	}
+	40% {
+		filter: blur(13px) brightness(1.21);
 	}
 }
